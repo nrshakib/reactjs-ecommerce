@@ -1,17 +1,16 @@
 import React from "react";
-import "./Navbar.css";
 import { AiOutlineLogin } from "react-icons/ai";
-
 import logo from "../../assets/images/logo.svg";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div className="navbar bg-base-100 lg:px-14 xl:px-14 ">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
           <img src={logo} alt="e-commerce" />
           <p className="invisible lg:visible">e-commerce</p>
-        </a>
+        </Link>
       </div>
       <div className="dropdown">
         <label tabIndex={0} className="btn btn-ghost lg:hidden md:hidden  mx-5">
@@ -35,26 +34,26 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
         >
           <li>
-            <a>Products</a>
+            <Link to="/products">Products</Link>
           </li>
           <li>
-            <a>Cart</a>
+            <Link to="/cart">Cart</Link>
           </li>
           <li>
-            <a>Offers</a>
+            <Link tp="/offers">Offers</Link>
           </li>
         </ul>
       </div>
       <div className="navbar-center hidden lg:flex md:flex lg:mr-10">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Products</a>
+            <Link to="/products">Products</Link>
           </li>
           <li>
-            <a>Cart</a>
+            <Link to="/cart">Cart</Link>
           </li>
           <li>
-            <a>Offers</a>
+            <Link to="/offers">Offers</Link>
           </li>
         </ul>
       </div>
@@ -67,10 +66,31 @@ const Navbar = () => {
           />
         </div>
         <div>
-          <button className="flex">
+          <Link to="/login" className="flex">
             <p className="mr-1">Log In</p>
             <AiOutlineLogin className="mt-1" />
-          </button>
+          </Link>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-8 rounded-full">
+                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-20"
+            >
+              <li>
+                <a className="justify-between">Profile</a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
