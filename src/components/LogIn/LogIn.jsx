@@ -1,20 +1,45 @@
 import React from "react";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
+import Loading from "../Shared/Loading/Loading";
 
 const LogIn = () => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
 
-  if (user) {
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  let signInError;
+
+  if (googleError || error) {
+    signInError = (
+      <p className="text-red-500">
+        <small>
+          {error?.message}|| {googleError?.message}
+        </small>
+      </p>
+    );
+  }
+  if (googleUser || user) {
     console.log(user);
   }
+  if (loading || googleLoading) {
+    return <Loading />;
+  }
+  const onSubmit = (data) => {
+    console.log(data);
+    signInWithEmailAndPassword(data.email, data.password);
+  };
 
   return (
     <div className="flex h-screen justify-center items-center">
@@ -85,6 +110,7 @@ const LogIn = () => {
                 </span>
               )}
             </label>
+            {signInError}
             {/* submit */}
             <input
               className="btn w-full max-w-xs bg-blue-500 text-black hover:bg-blue-300"
